@@ -20,6 +20,26 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
+    /**
+     * @OA\Post(
+     * path = 'api/login',
+     * sumeray = "authenticated user",
+     * ),
+     * @OA\Parameter(
+     * name = 'email',
+     *  description="User's name",
+     *  required=true,
+     * @OA\Schema(type = 'string')
+     * ),
+     * @OA\Parameter(
+     * name = 'password',
+     * description="Password user",
+     * required=true,
+     * @OA\Schema(type = 'string')
+     * ),
+     * @OA\Response(response = "201", description = "User registered successfully")
+     * @OA\Response(response = "422", description = "Validation failed")
+     */
 
     /**
      * Get a JWT via given credentials.
@@ -30,10 +50,31 @@ class AuthController extends Controller
     {
         return $this->returLoginJsonResponse($request->validated(), 'guard:api');
     }
-    
+
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Register a new user",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", description="User's name"),
+     *             @OA\Property(property="firstName", type="string", description="User's first name"),
+     *             @OA\Property(property="residence", type="string", description="User's residence"),
+     *             @OA\Property(property="password", type="string", description="User's password"),
+     *             @OA\Property(property="email", type="string", format="email", description="User's email (unique)"),
+     *             @OA\Property(property="profilePicture", type="string", description="URL or base64-encoded image of the user's profile picture"),
+     *             @OA\Property(property="levelOfStudy", type="string", description="User's level of study"),
+     *         )
+     *     ),
+     *     @OA\Response(response="201", description="User registered successfully"),
+     *     @OA\Response(response="422", description="Validation failed")
+     * )
+     */
+
     public function register(RegisterUserRequest $request)
     {
-        return $this -> returnJsonResponse('action:store', $request->validated(), 'model:User' );
+        return $this->returnJsonResponse('action:store', $request->validated(), 'model:User');
     }
 
     /**
@@ -47,6 +88,14 @@ class AuthController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="Logout the authenticated user",
+     *     @OA\Response(response="200", description="Successfully logged out"),
+     *     security={{ "apiToken":{} }}
+     * )
+     */
+    /**
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
@@ -58,6 +107,14 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /**
+ * @OA\Post(
+ *     path="/api/refresh",
+ *     summary="refresh the user's token",
+ *     @OA\Response(response="200", description="Successfully logged out"),
+ *     security={{ "apiToken":{} }}
+ * )
+ */
     /**
      * Refresh a token.
      *

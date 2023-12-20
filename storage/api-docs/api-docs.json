@@ -1,0 +1,508 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger with Laravel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/admin/users-cadidature": {
+            "get": {
+                "summary": "Retrieve a list of all users",
+                "operationId": "5e19560743d6290c740541cbb1825143",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the list of users"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users-acepted": {
+            "post": {
+                "summary": "Retrieve a list of all users accepted",
+                "operationId": "1ca60390f45ed7756d3c390be055c491",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the list of users accepted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "api/admin/users-rejected": {
+            "post": {
+                "summary": "Retrieve a list of all users rejected",
+                "operationId": "356801cf392c393972dc60a7fe261e43",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the list of users rejected"
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "api/admin/users/show": {
+            "get": {
+                "summary": "Retrieve a one users ",
+                "operationId": "a7d519114829c4e5dd06e3c24d96d03d",
+                "responses": {
+                    "200": {
+                        "description": "Successfully a users selected"
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/store": {
+            "post": {
+                "summary": "Create a new user",
+                "operationId": "217b1c11b834a540f8d3ac0f7b24ab4c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "firstName": {
+                                        "description": "User's first name",
+                                        "type": "string"
+                                    },
+                                    "residence": {
+                                        "description": "User's residence",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User's password (hashed)",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email (unique)",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "profilePicture": {
+                                        "description": "URL or base64-encoded image of the user's profile picture",
+                                        "type": "string"
+                                    },
+                                    "levelOfStudy": {
+                                        "description": "User's level of study",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/admin/users/{id}": {
+            "delete": {
+                "summary": "Delete a user",
+                "operationId": "ba9318224acf159c3515a78b81c0b44c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update an existing user",
+                "operationId": "1dad7375086fd778989b745ad58526bc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "firstName": {
+                                        "description": "User's first name",
+                                        "type": "string"
+                                    },
+                                    "residence": {
+                                        "description": "User's residence",
+                                        "type": "string"
+                                    },
+                                    "profilePicture": {
+                                        "description": "URL or base64-encoded image of the user's profile picture",
+                                        "type": "string"
+                                    },
+                                    "levelOfStudy": {
+                                        "description": "User's level of study",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/user/candidater/formation-{formationId}": {
+            "post": {
+                "summary": "Submit a candidature for a formation",
+                "operationId": "82b7f47981ef598691bcdb5a25b7547a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "formationId": {
+                                        "description": "ID of the formation to apply for",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Candidature submitted successfully"
+                    },
+                    "403": {
+                        "description": "You have already applied to this formation"
+                    },
+                    "404": {
+                        "description": "Formation not found"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/admin/candidater/{formationId}": {
+            "patch": {
+                "summary": "Accept or reject a user's candidature for a formation",
+                "operationId": "369c7572b7cd720de6fd856fcf1903ef",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "formationId": {
+                                        "description": "ID of the formation",
+                                        "type": "integer"
+                                    },
+                                    "status": {
+                                        "description": "Status of the candidature (accept or reject)",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Candidature status updated successfully"
+                    },
+                    "404": {
+                        "description": "Formation not found"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "api/admin/formation": {
+            "get": {
+                "summary": "Retrieve a list of all formatmions",
+                "operationId": "f1bf318c8e5353338c7bcd80964947cb",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the list of formatmions"
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "api/admin/formation/{id}": {
+            "get": {
+                "summary": "Retrieve a one formation ",
+                "operationId": "d2f317fff6a6a01330a1f80937a330b5",
+                "responses": {
+                    "200": {
+                        "description": "Successfully a formation selected"
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/formations": {
+            "post": {
+                "summary": "Create a new formation",
+                "operationId": "963494922dd1feb2a6f23c07917cb112",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "startDate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "endDate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-31"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Formation created successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
+        "/api/admin/formation/{id}": {
+            "put": {
+                "summary": "Update a formation by ID",
+                "operationId": "40f1486d2fe4f552ee9d4edfcdcc70db",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the formation to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "startDate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "endDate": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-31"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Formation updated successfully"
+                    },
+                    "404": {
+                        "description": "Formation not found"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a formation",
+                "operationId": "eaa087b9540372d06d38414bf1de8d61",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the formation to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "formation deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "formation not found"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "summary": "Register a new user",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "firstName": {
+                                        "description": "User's first name",
+                                        "type": "string"
+                                    },
+                                    "residence": {
+                                        "description": "User's residence",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email (unique)",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "profilePicture": {
+                                        "description": "URL or base64-encoded image of the user's profile picture",
+                                        "type": "string"
+                                    },
+                                    "levelOfStudy": {
+                                        "description": "User's level of study",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

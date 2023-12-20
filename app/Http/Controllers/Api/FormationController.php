@@ -15,32 +15,106 @@ class FormationController extends Controller
 {
     use ReturnJsonResponseTrait;
 
+    /**
+     * @OA\Get(
+     * path = "api/admin/formation",
+     *  summary="Retrieve a list of all formatmions",
+     *     @OA\Response(response="200", description="Successfully retrieved the list of formatmions"),
+     *     security={{ "apiToken":{} }}
+     * ),
+     */
     public function index()
     {
         return $this->returIndexJsonResponse('model:Formation', 'paginate:5');
     }
 
+    /**
+     * @OA\Get(
+     * path = "api/admin/formation/{id}",
+     *  summary="Retrieve a one formation ",
+     *     @OA\Response(response="200", description="Successfully a formation selected"),
+     *     security={{ "apiToken":{} }}
+     * ),
+     */
     public function show(Request $request)
     {
-        return $this-> returShowJsonResponse('model:Formation', $request->user);
-        
+        return $this->returShowJsonResponse('model:Formation', $request->user);
     }
 
-    public function store(StoreFormationRequest $request) 
+
+    /**
+     * @OA\Post(
+     *     path="/api/admin/formations",
+     *     summary="Create a new formation",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="startDate", type="string", format="date", example="2023-01-01"),
+     *             @OA\Property(property="endDate", type="string", format="date", example="2023-12-31"),
+     *         )
+     *     ),
+     *     @OA\Response(response="201", description="Formation created successfully"),
+     *     @OA\Response(response="422", description="Validation failed"),
+     *     
+     * )
+     */
+    public function store(StoreFormationRequest $request)
     {
-       
-        return $this-> returnJsonResponse('action:store', $request->validated(), 'model:Formation');
+        return $this->returnJsonResponse('action:store', $request->validated(), 'model:Formation');
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/admin/formation/{id}",
+     *     summary="Update a formation by ID",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the formation to be updated",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="startDate", type="string", format="date", example="2023-01-01"),
+     *             @OA\Property(property="endDate", type="string", format="date", example="2023-12-31"),
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Formation updated successfully"),
+     *     @OA\Response(response="404", description="Formation not found"),
+     *     @OA\Response(response="422", description="Validation failed"),
+     *     
+     * )
+     */
     public function update(Request $request, UpdateFormationRequest $myRequest)
     {
-        //  dd( $request->formation);
-        return $this-> returnJsonResponse('action:update', $myRequest->validated(), 'model:Formation', $request->formation);
+        return $this->returnJsonResponse('action:update', $myRequest->validated(), 'model:Formation', $request->formation);
     }
 
+
+    /**
+     * @OA\Delete(
+     *     path="/api/admin/formation/{id}",
+     *     summary="Delete a formation",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the formation to delete",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response="200", description="formation deleted successfully"),
+     *     @OA\Response(response="401", description="Unauthorized"),
+     *     @OA\Response(response="404", description="formation not found"),
+     * )
+     */
     public function destroy(Request $request)
     {
-        return $this-> returnJsonResponse('action:delete', null, 'model:Formation', $request->formation);
+        return $this->returnJsonResponse('action:delete', null, 'model:Formation', $request->formation);
     }
 }
-
