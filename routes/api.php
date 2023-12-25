@@ -37,11 +37,12 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('admin/formation', FormationController::class);
     Route::apiResource('admin/users', AdminUserController::class);
 
-    Route::post('user/candidater/formation-{formationId}', [CandidatureController::class, 'candidater']);
+    Route::post('user/candidater/formation', [CandidatureController::class, 'candidater']);
     Route::put('admin/candidater/{formationId}', [CandidatureController::class, 'accepteUser']);
-    
+    // Route::get('admin/users-cadidature', [AdminUserController::class, 'index']);
+
     Route::controller(AdminUserController::class)->group(function () {
-        Route::post('admin/users-cadidature', 'index');
+        Route::get('admin/users-cadidature', 'index');
         Route::post('admin/users-acepted', 'isAcepted');
         Route::post('admin/users-rejected', 'isNotAcepted');
     });

@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterUserRequest;
+use App\Models\User;
 use App\Traits\ReturnJsonResponseTrait;
 
 class AuthController extends Controller
@@ -20,31 +21,22 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
-    /**
-     * @OA\Post(
-     * path = 'api/login',
-     * sumeray = "authenticated user",
-     * ),
-     * @OA\Parameter(
-     * name = 'email',
-     *  description="User's name",
-     *  required=true,
-     * @OA\Schema(type = 'string')
-     * ),
-     * @OA\Parameter(
-     * name = 'password',
-     * description="Password user",
-     * required=true,
-     * @OA\Schema(type = 'string')
-     * ),
-     * @OA\Response(response = "201", description = "User registered successfully")
-     * @OA\Response(response = "422", description = "Validation failed")
-     */
+
 
     /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Loged a new user",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="password", type="string", description="User's password"),
+     *             @OA\Property(property="email", type="string", format="email", description="User's email (unique)"),
+     *         )
+     *     ),
+     *     @OA\Response(response="201", description="User registered successfully"),
+     *     @OA\Response(response="422", description="Validation failed")
+     * )
      */
     public function login(LoginRequest $request)
     {
@@ -108,13 +100,13 @@ class AuthController extends Controller
     }
 
     /**
- * @OA\Post(
- *     path="/api/refresh",
- *     summary="refresh the user's token",
- *     @OA\Response(response="200", description="Successfully logged out"),
- *     security={{ "apiToken":{} }}
- * )
- */
+     * @OA\Post(
+     *     path="/api/refresh",
+     *     summary="refresh the user's token",
+     *     @OA\Response(response="200", description="Successfully logged out"),
+     *     security={{ "apiToken":{} }}
+     * )
+     */
     /**
      * Refresh a token.
      *

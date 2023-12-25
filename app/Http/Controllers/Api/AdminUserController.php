@@ -7,7 +7,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-
 use App\Traits\ReturnJsonResponseTrait;
 use Illuminate\Http\Request;
 
@@ -20,7 +19,7 @@ class AdminUserController extends Controller
      *     path="/api/admin/users-cadidature",
      *     summary="Retrieve a list of all users",
      *     @OA\Response(response="200", description="Successfully retrieved the list of users"),
-     *     security={{ "bearerAuth":{} }}
+     *     security={{ "bearerAuth":{} }},
      * )
      */
     public function index()
@@ -29,7 +28,7 @@ class AdminUserController extends Controller
     }
 
 
-   /**
+    /**
      * @OA\Post(
      *     path="/api/admin/users-acepted",
      *     summary="Retrieve a list of all users accepted",
@@ -45,10 +44,10 @@ class AdminUserController extends Controller
 
     /**
      * @OA\Post(
-     * path = "api/admin/users-rejected",
+     * path = "/api/admin/users-rejected",
      *  summary="Retrieve a list of all users rejected",
      *     @OA\Response(response="200", description="Successfully retrieved the list of users rejected"),
-     *     security={{ "apiToken":{} }}
+     *     security={{ "bearerAuth":{} }}
      * ),
      */
     public function isNotAcepted()
@@ -58,10 +57,10 @@ class AdminUserController extends Controller
 
     /**
      * @OA\Get(
-     * path = "api/admin/users/show",
+     * path = "/api/admin/users/{id}",
      *  summary="Retrieve a one users ",
      *     @OA\Response(response="200", description="Successfully a users selected"),
-     *     security={{ "apiToken":{} }}
+     *     security={{ "bearerAuth":{} }}
      * ),
      */
     public function show(Request $request)
@@ -87,7 +86,8 @@ class AdminUserController extends Controller
      *         )
      *     ),
      *     @OA\Response(response="201", description="User created successfully"),
-     *     @OA\Response(response="422", description="Validation failed")
+     *     @OA\Response(response="422", description="Validation failed"),
+     *     security={{ "bearerAuth":{} }}
      * )
      */
     public function store(StoreUserRequest $request)
@@ -115,11 +115,12 @@ class AdminUserController extends Controller
      *             @OA\Property(property="residence", type="string", description="User's residence"),
      *             @OA\Property(property="profilePicture", type="string", description="URL or base64-encoded image of the user's profile picture"),
      *             @OA\Property(property="levelOfStudy", type="string", description="User's level of study"),
-     *         )
+     *         ),
      *     ),
      *     @OA\Response(response="200", description="User updated successfully"),
      *     @OA\Response(response="404", description="User not found"),
-     *     @OA\Response(response="422", description="Validation failed")
+     *     @OA\Response(response="422", description="Validation failed"),
+     *     security={{ "bearerAuth":{} }}
      * )
      */
     public function update(UpdateUserRequest $request)
@@ -128,25 +129,26 @@ class AdminUserController extends Controller
     }
 
 
-    /**
-     * @OA\Delete(
-     *     path="/api/admin/users/{id}",
-     *     summary="Delete a user",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID of the user to delete",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(response="200", description="User deleted successfully"),
-     *     @OA\Response(response="401", description="Unauthorized"),
-     *     @OA\Response(response="404", description="User not found"),
-     * )
-     */
-    public function destroy(Request $request)
-    {
-        return $this->returnJsonResponse('action:delete', null, 'model:User', $request->user);
-    }
-    
+    // /**
+    //  * @OA\Delete(
+    //  *     path="/api/admin/users/{id}",
+    //  *     summary="Delete a user",
+    //  *     @OA\Parameter(
+    //  *         name="id",
+    //  *         in="path",
+    //  *         required=true,
+    //  *         description="ID of the user to delete",
+    //  *         @OA\Schema(type="integer")
+    //  *     ),
+    //  *     @OA\Response(response="200", description="User deleted successfully"),
+    //  *     @OA\Response(response="401", description="Unauthorized"),
+    //  *     @OA\Response(response="404", description="User not found"),
+    //  *      security={{ "bearerAuth":{} }}
+    //  * )
+    //  */
+    // public function destroy(Request $request)
+    // {
+    //     return $this->returnJsonResponse('action:delete', null, 'model:User', $request->user);
+    // }
+
 }

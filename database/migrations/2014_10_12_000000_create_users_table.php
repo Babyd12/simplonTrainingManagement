@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('levelOfStudy')->pending('Bacalaureat');
             $table ->enum('status', ['candidat', 'apprenant', 'refusé', 'certifié', 'admin', 'user'])->defaul('user');
             $table->string('email')->unique();
+            $table->binary('profilePicture')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->timestamps();

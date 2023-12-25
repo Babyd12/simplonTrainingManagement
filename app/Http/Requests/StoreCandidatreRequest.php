@@ -22,13 +22,13 @@ class StoreCandidatreRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
 
-     protected function prepareForValidation()
-     {
-         $this->merge([
+    //  protected function prepareForValidation()
+    //  {
+    //      $this->merge([
              
-             'formationId' => $this->route('formationId'),
-         ]);
-     }
+    //          'formationId' => $this->route('formationId'),
+    //      ]);
+    //  }
 
     public function rules(): array
     {

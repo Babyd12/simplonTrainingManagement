@@ -20,8 +20,7 @@ class User extends Authenticatable implements JWTSubject
     {
       return $this -> belongsToMany(Formation::class, 'formations_users')->withTimestamps();
     }
-
-
+    
     public function getJWTIdentifier()
     {
       return $this->getKey();
@@ -41,9 +40,8 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-      'name', 'email', 'password', 'firstName', 'prictureProfile', 'levelOfStudy', 'residence',
-      'role',
+    protected $guarded = [
+      'id'
     ];
 
     /**

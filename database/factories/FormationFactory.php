@@ -17,7 +17,10 @@ class FormationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->name(),
+            'description' => fake()->name(),
+            'startDate' => fake()->date(),
+            'endDate' => fake()->date(),
         ];
     }
 }

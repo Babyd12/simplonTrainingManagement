@@ -209,6 +209,7 @@ trait ReturnJsonResponseTrait
                 $modelInstance = 'App\Models\\' . $Model;
                 $data = $modelInstance::create($requestValidated);
                 $statusMessage = 'Enregistrement réussi';
+                
             } else if ($action == 'update') {
 
                 return $this->returUpdateJsonResponse($id, $requestValidated, $Model);

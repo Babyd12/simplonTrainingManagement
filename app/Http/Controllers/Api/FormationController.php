@@ -17,10 +17,10 @@ class FormationController extends Controller
 
     /**
      * @OA\Get(
-     * path = "api/admin/formation",
+     * path ="/api/admin/formation",
      *  summary="Retrieve a list of all formatmions",
      *     @OA\Response(response="200", description="Successfully retrieved the list of formatmions"),
-     *     security={{ "apiToken":{} }}
+     *     security={{ "bearerAuth":{} }}
      * ),
      */
     public function index()
@@ -30,10 +30,17 @@ class FormationController extends Controller
 
     /**
      * @OA\Get(
-     * path = "api/admin/formation/{id}",
+     * path = "/api/admin/formation/{id}",
      *  summary="Retrieve a one formation ",
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the formation you want show",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(response="200", description="Successfully a formation selected"),
-     *     security={{ "apiToken":{} }}
+     *     security={{ "bearerAuth":{} }}
      * ),
      */
     public function show(Request $request)
@@ -41,10 +48,9 @@ class FormationController extends Controller
         return $this->returShowJsonResponse('model:Formation', $request->user);
     }
 
-
     /**
      * @OA\Post(
-     *     path="/api/admin/formations",
+     *     path="/api/admin/formation",
      *     summary="Create a new formation",
      *     @OA\RequestBody(
      *         required=true,
@@ -57,6 +63,7 @@ class FormationController extends Controller
      *     ),
      *     @OA\Response(response="201", description="Formation created successfully"),
      *     @OA\Response(response="422", description="Validation failed"),
+     *     security={{ "bearerAuth":{} }}
      *     
      * )
      */
@@ -88,6 +95,7 @@ class FormationController extends Controller
      *     @OA\Response(response="200", description="Formation updated successfully"),
      *     @OA\Response(response="404", description="Formation not found"),
      *     @OA\Response(response="422", description="Validation failed"),
+     *   security={{ "bearerAuth":{} }}
      *     
      * )
      */
@@ -111,6 +119,7 @@ class FormationController extends Controller
      *     @OA\Response(response="200", description="formation deleted successfully"),
      *     @OA\Response(response="401", description="Unauthorized"),
      *     @OA\Response(response="404", description="formation not found"),
+     *   security={{ "bearerAuth":{} }}
      * )
      */
     public function destroy(Request $request)

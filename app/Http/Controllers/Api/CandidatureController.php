@@ -27,8 +27,9 @@ class CandidatureController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/user/candidater/formation-{formationId}",
+     *     path="/api/user/candidater/formation",
      *     summary="Submit a candidature for a formation",
+     *      
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -39,6 +40,7 @@ class CandidatureController extends Controller
      *     @OA\Response(response="403", description="You have already applied to this formation"),
      *     @OA\Response(response="404", description="Formation not found"),
      *     @OA\Response(response="422", description="Validation failed"),
+     *     security={{ "bearerAuth":{} }}
      *     
      * )
      */
@@ -46,6 +48,7 @@ class CandidatureController extends Controller
     {
 
         try {
+           
             $formation = Formation::FindOrFail($request->validated('formationId'));
 
             $formationId = $request->validated('formationId');
@@ -64,7 +67,6 @@ class CandidatureController extends Controller
         }
     }
 
-
     /**
      * @OA\Patch(
      *     path="/api/admin/candidater/{formationId}",
@@ -79,6 +81,7 @@ class CandidatureController extends Controller
      *     @OA\Response(response="200", description="Candidature status updated successfully"),
      *     @OA\Response(response="404", description="Formation not found"),
      *     @OA\Response(response="422", description="Validation failed"),
+     *     security={{ "bearerAuth":{} }}
      * )
      */
     public function accepteUser(UpdateCandidatureRequest $request)

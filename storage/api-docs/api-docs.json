@@ -37,10 +37,10 @@
                 ]
             }
         },
-        "api/admin/users-rejected": {
+        "/api/admin/users-rejected": {
             "post": {
                 "summary": "Retrieve a list of all users rejected",
-                "operationId": "356801cf392c393972dc60a7fe261e43",
+                "operationId": "2ee57dae02990ede737114619cfaecbc",
                 "responses": {
                     "200": {
                         "description": "Successfully retrieved the list of users rejected"
@@ -48,15 +48,15 @@
                 },
                 "security": [
                     {
-                        "apiToken": []
+                        "bearerAuth": []
                     }
                 ]
             }
         },
-        "api/admin/users/show": {
+        "/api/admin/users/{id}": {
             "get": {
                 "summary": "Retrieve a one users ",
-                "operationId": "a7d519114829c4e5dd06e3c24d96d03d",
+                "operationId": "37b77653b63a8b8ef93f709b6ab123ed",
                 "responses": {
                     "200": {
                         "description": "Successfully a users selected"
@@ -64,92 +64,9 @@
                 },
                 "security": [
                     {
-                        "apiToken": []
+                        "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/admin/users/store": {
-            "post": {
-                "summary": "Create a new user",
-                "operationId": "217b1c11b834a540f8d3ac0f7b24ab4c",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "User's name",
-                                        "type": "string"
-                                    },
-                                    "firstName": {
-                                        "description": "User's first name",
-                                        "type": "string"
-                                    },
-                                    "residence": {
-                                        "description": "User's residence",
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "description": "User's password (hashed)",
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "description": "User's email (unique)",
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "profilePicture": {
-                                        "description": "URL or base64-encoded image of the user's profile picture",
-                                        "type": "string"
-                                    },
-                                    "levelOfStudy": {
-                                        "description": "User's level of study",
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User created successfully"
-                    },
-                    "422": {
-                        "description": "Validation failed"
-                    }
-                }
-            }
-        },
-        "/api/admin/users/{id}": {
-            "delete": {
-                "summary": "Delete a user",
-                "operationId": "ba9318224acf159c3515a78b81c0b44c",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the user to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User deleted successfully"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "User not found"
-                    }
-                }
             },
             "patch": {
                 "summary": "Update an existing user",
@@ -207,13 +124,78 @@
                     "422": {
                         "description": "Validation failed"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/api/user/candidater/formation-{formationId}": {
+        "/api/admin/users/store": {
+            "post": {
+                "summary": "Create a new user",
+                "operationId": "217b1c11b834a540f8d3ac0f7b24ab4c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "firstName": {
+                                        "description": "User's first name",
+                                        "type": "string"
+                                    },
+                                    "residence": {
+                                        "description": "User's residence",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User's password (hashed)",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email (unique)",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "profilePicture": {
+                                        "description": "URL or base64-encoded image of the user's profile picture",
+                                        "type": "string"
+                                    },
+                                    "levelOfStudy": {
+                                        "description": "User's level of study",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/candidater/formation": {
             "post": {
                 "summary": "Submit a candidature for a formation",
-                "operationId": "82b7f47981ef598691bcdb5a25b7547a",
+                "operationId": "46fed3212589a342f14289a0c6ddc0bc",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -243,7 +225,12 @@
                     "422": {
                         "description": "Validation failed"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/admin/candidater/{formationId}": {
@@ -280,13 +267,18 @@
                     "422": {
                         "description": "Validation failed"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "api/admin/formation": {
+        "/api/admin/formation": {
             "get": {
                 "summary": "Retrieve a list of all formatmions",
-                "operationId": "f1bf318c8e5353338c7bcd80964947cb",
+                "operationId": "2f03c8a93255759863621022ff230bd5",
                 "responses": {
                     "200": {
                         "description": "Successfully retrieved the list of formatmions"
@@ -294,31 +286,13 @@
                 },
                 "security": [
                     {
-                        "apiToken": []
+                        "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "api/admin/formation/{id}": {
-            "get": {
-                "summary": "Retrieve a one formation ",
-                "operationId": "d2f317fff6a6a01330a1f80937a330b5",
-                "responses": {
-                    "200": {
-                        "description": "Successfully a formation selected"
-                    }
-                },
-                "security": [
-                    {
-                        "apiToken": []
-                    }
-                ]
-            }
-        },
-        "/api/admin/formations": {
+            },
             "post": {
                 "summary": "Create a new formation",
-                "operationId": "963494922dd1feb2a6f23c07917cb112",
+                "operationId": "ce8438b5c676494a2d44637b38f17cc8",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -354,10 +328,40 @@
                     "422": {
                         "description": "Validation failed"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/admin/formation/{id}": {
+            "get": {
+                "summary": "Retrieve a one formation ",
+                "operationId": "372fd5d37c0743e1ae554c55c0e94032",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the formation you want show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully a formation selected"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "put": {
                 "summary": "Update a formation by ID",
                 "operationId": "40f1486d2fe4f552ee9d4edfcdcc70db",
@@ -411,7 +415,12 @@
                     "422": {
                         "description": "Validation failed"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a formation",
@@ -436,6 +445,46 @@
                     },
                     "404": {
                         "description": "formation not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Loged a new user",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email (unique)",
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
                     }
                 }
             }
